@@ -206,7 +206,7 @@ header.site .cta .arrow { margin-left: 6px; }
 .hero .portrait::after {
   content: "";
   position: absolute;
-  inset: 12px;
+  inset: clamp(8px, 2.2vw, 12px);
   border: 1px solid rgba(255, 255, 255, 0.22);
   pointer-events: none;
   mix-blend-mode: soft-light;
@@ -326,18 +326,20 @@ header.site .cta .arrow { margin-left: 6px; }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .hero .inner {
+      will-change: transform;
       animation: hero-inner-scroll linear both;
       animation-timeline: view(block);
-      animation-range: entry 0% cover 55%;
+      /* Tied to hero in view: subtle drift while first screen scrolls, then eases out */
+      animation-range: entry 0% cover 42%;
     }
   }
 }
 @keyframes hero-inner-scroll {
   from {
-    transform: translateY(10px);
+    transform: translateY(6px);
   }
   to {
-    transform: translateY(-10px);
+    transform: translateY(-6px);
   }
 }
 
@@ -401,18 +403,28 @@ section.block .inner {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  /* Opacity-only so child motion does not fight .reveal’s translateY transition */
+  .facts.reveal.is-visible .list {
+    animation: facts-list-in 560ms var(--ease-out-expo) 70ms both;
+  }
   .facts.reveal.is-visible .footnote {
-    animation: facts-footnote-in 520ms var(--ease-out-expo) 140ms both;
+    animation: facts-footnote-in 520ms var(--ease-out-expo) 160ms both;
+  }
+}
+@keyframes facts-list-in {
+  from {
+    opacity: 0.82;
+  }
+  to {
+    opacity: 1;
   }
 }
 @keyframes facts-footnote-in {
   from {
-    opacity: 0.35;
-    transform: translateY(8px);
+    opacity: 0.55;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -972,10 +984,10 @@ footer.site .meta .sep { color: var(--ink-faint); }
     animation: none !important;
     transform: none !important;
   }
+  .facts.reveal.is-visible .list,
   .facts.reveal.is-visible .footnote {
     animation: none !important;
     opacity: 1 !important;
-    transform: none !important;
   }
   header.site.is-scrolled {
     box-shadow: none;
