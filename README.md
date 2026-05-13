@@ -2,6 +2,8 @@
 
 Personal site for Sameer Chib — static HTML, CSS, and JS deployed to **Cloudflare Pages** (project: `sameerchib`).
 
+**GitHub:** https://github.com/reemas1111/sameerchib-com — connect this repo in Cloudflare Pages, branch `main`, build output `/` (root).
+
 ## Repo layout
 
 | File / folder | Role |
