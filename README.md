@@ -1,41 +1,55 @@
 # sameerchib.com
 
-Personal site for Sameer Chib — static HTML, CSS, and JS deployed to **Cloudflare Pages** (project: `sameerchib`).
+**Purpose:** Source of truth for the personal site at [sameerchib.com](https://sameerchib.com/) — static HTML, CSS, and JS (no bundler).
 
-**GitHub:** https://github.com/reemas1111/sameerchib-com — connect this repo in Cloudflare Pages, branch `main`, build output `/` (root).
+| Layer | Where |
+|--------|--------|
+| **Repository** | https://github.com/reemas1111/sameerchib-com (`main`) |
+| **Hosting** | [Cloudflare Pages](https://developers.cloudflare.com/pages/) — Workers & Pages project **`sameerchib`** |
+| **Domain** | `sameerchib.com` (custom domain on that Pages project; DNS in Cloudflare) |
 
-## Repo layout
+Pushes to `main` trigger a production deploy; pull requests get preview URLs once Git is connected to the Pages project.
+
+## Deploy map (Cloudflare Pages)
+
+1. **Cloudflare Dashboard** → **Workers & Pages** → **`sameerchib`**.
+2. **Settings** → **Builds & deployments** → connect **GitHub** → select **`reemas1111/sameerchib-com`**, production branch **`main`**.
+3. **Build configuration** (static, no build step):
+
+   | Setting | Value |
+   |---------|--------|
+   | Framework preset | **None** |
+   | Build command | *(empty)* |
+   | Build output directory | **`/`** or **`.`** (repo root — folder that contains `index.html`) |
+
+4. **Custom domains**: attach **sameerchib.com** to this Pages project if not already.
+
+## Repo layout (what to edit)
 
 | File / folder | Role |
 |---------------|------|
 | [`index.html`](index.html) | Page structure, copy, meta (SEO, Open Graph, Twitter, JSON-LD) |
-| [`styles.css`](styles.css) | All layout and visual design tokens |
+| [`styles.css`](styles.css) | Layout and design tokens (`:root`) |
 | [`scripts.js`](scripts.js) | Scroll reveals + lazy-loaded Calendly widget |
-| [`images/portrait.jpg`](images/portrait.jpg) | Hero portrait (replace with your preferred headshot) |
+| [`DESIGN.md`](DESIGN.md) | Short design token / type reference for edits |
+| [`images/portrait.jpg`](images/portrait.jpg) | Hero portrait (replace or update paths in `index.html` + social meta if renamed) |
 | [`favicon.svg`](favicon.svg) | Favicon |
 | [`_headers`](_headers) | Cloudflare Pages response headers (security + cache hints) |
 
-## Deploy with GitHub (auto-updates on push)
+## First-time Git push (new clone / empty remote)
 
-1. Create a GitHub repository (empty, no README if you will push this repo).
-2. From this folder:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial site: static Pages layout"
-   git branch -M main
-   git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
-   git push -u origin main
-   ```
-3. In **Cloudflare Dashboard** → **Workers & Pages** → project **`sameerchib`** → **Settings** → **Builds & deployments** → connect the GitHub repository.
-4. Build settings for a static site with **no bundler**:
-   - **Framework preset:** None
-   - **Build command:** (leave empty)
-   - **Build output directory:** `/` (root of the repo — the directory that contains `index.html`)
+If this folder is not yet linked to GitHub:
 
-Every push to the production branch redeploys the live site. Pull requests get preview URLs.
+```bash
+git init
+git add .
+git commit -m "Initial site: static Pages layout"
+git branch -M main
+git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
+git push -u origin main
+```
 
-5. Under **Custom domains**, keep **sameerchib.com** pointed at this Pages project (DNS on Cloudflare should already list the domain).
+Then connect that repository in the Pages project as in **Deploy map** above.
 
 ## Local preview
 
