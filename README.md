@@ -59,6 +59,23 @@ python3 -m http.server 8080
 
 Open `http://localhost:8080` (root must be this directory so `/styles.css` and `/images/` resolve).
 
+## Higgsfield CLI (optional — image/video from agents)
+
+Install and sign in per [Higgsfield CLI](https://higgsfield.ai/cli) / [GitHub](https://github.com/higgsfield-ai/cli):
+
+```bash
+npm install -g @higgsfield/cli
+higgsfield auth login
+```
+
+To add skills to Cursor / Claude Code agents:
+
+```bash
+npx skills add higgsfield-ai/skills
+```
+
+Auth opens a browser once; credits follow your Higgsfield plan.
+
 ## Replacing the hero photo
 
 Swap [`images/portrait.jpg`](images/portrait.jpg) for your file (keep the name, or update the `<img>` in `index.html` and `og:image` / `twitter:image` URLs). Aim for roughly **4:5** aspect ratio for the hero frame.

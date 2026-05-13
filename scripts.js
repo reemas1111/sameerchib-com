@@ -72,13 +72,29 @@
     io.observe(slot);
   }
 
+  function initHeaderScroll() {
+    var header = document.querySelector('header.site');
+    if (!header) return;
+    var onScroll = function () {
+      if (window.scrollY > 16) {
+        header.classList.add('is-scrolled');
+      } else {
+        header.classList.remove('is-scrolled');
+      }
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initReveals();
       initCalendlyLazy();
+      initHeaderScroll();
     });
   } else {
     initReveals();
     initCalendlyLazy();
+    initHeaderScroll();
   }
 })();

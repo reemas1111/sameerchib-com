@@ -7,5 +7,6 @@ Editorial monochrome layout. Implementation lives in [`styles.css`](styles.css) 
 - **Display:** Syne (600–800)
 - **Body:** Public Sans
 - **Mono / labels:** JetBrains Mono, uppercase, wide letter-spacing
+- **Motion (v2.3):** `--ease-out-expo`, `--ease-spring`, `--dur-*`, `--shadow-lift` / `--shadow-soft` — used for scroll reveals, cards, hero, header
 
 Bump the version comment in `styles.css` when you materially change tokens or section layout.
