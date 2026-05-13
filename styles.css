@@ -187,9 +187,11 @@ header.site .cta .arrow { margin-left: 6px; }
   max-width: var(--max-w);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  /* minmax(0, …) prevents grid min-content blowout clipping the copy column off-screen (overflow-x on body) */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
   gap: 56px;
   align-items: center;
+  min-width: 0;
 }
 .hero .portrait {
   aspect-ratio: 4 / 5;
@@ -207,10 +209,9 @@ header.site .cta .arrow { margin-left: 6px; }
   content: "";
   position: absolute;
   inset: clamp(8px, 2.2vw, 12px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   pointer-events: none;
-  mix-blend-mode: soft-light;
-  opacity: 0.75;
+  opacity: 0.85;
 }
 .hero .portrait:hover {
   box-shadow: 0 28px 64px rgba(10, 10, 10, 0.12), inset 0 0 0 1px rgba(10, 10, 10, 0.08);
@@ -232,6 +233,9 @@ header.site .cta .arrow { margin-left: 6px; }
   display: flex;
   flex-direction: column;
   gap: 26px;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
 }
 .hero .eyebrow {
   font-family: var(--mono);
@@ -323,29 +327,13 @@ header.site .cta .arrow { margin-left: 6px; }
   box-shadow: var(--shadow-soft);
 }
 
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .hero .inner {
-      will-change: transform;
-      animation: hero-inner-scroll linear both;
-      animation-timeline: view(block);
-      /* Tied to hero in view: subtle drift while first screen scrolls, then eases out */
-      animation-range: entry 0% cover 42%;
-    }
-  }
-}
-@keyframes hero-inner-scroll {
-  from {
-    transform: translateY(6px);
-  }
-  to {
-    transform: translateY(-6px);
-  }
-}
+/* Scroll-linked motion removed from .hero .inner: view() timelines + transform on the
+   grid broke hero copy in several browsers (column clipped / invisible). Atmosphere stays
+   on static ::before; optional drift can return behind a dedicated wrapper if needed. */
 
 /* Tablet */
 @media (max-width: 1024px) {
-  .hero .inner { grid-template-columns: 0.75fr 1.6fr; gap: 40px; }
+  .hero .inner { grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.6fr); gap: 40px; }
   .hero h1 { font-size: clamp(36px, 5.5vw, 64px); }
   .hero p.tag { font-size: 16px; }
 }
@@ -353,7 +341,7 @@ header.site .cta .arrow { margin-left: 6px; }
 /* Mobile */
 @media (max-width: 720px) {
   .hero { padding: 48px var(--gutter) 64px; }
-  .hero .inner { grid-template-columns: 1fr; gap: 28px; }
+  .hero .inner { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .hero .portrait { max-width: 240px; }
   .hero h1 { font-size: clamp(36px, 11vw, 56px); line-height: 0.98; }
   .hero p.tag { font-size: 16px; }
@@ -978,10 +966,6 @@ footer.site .meta .sep { color: var(--ink-faint); }
   .hero::before {
     animation: none !important;
     opacity: 1 !important;
-    transform: none !important;
-  }
-  .hero .inner {
-    animation: none !important;
     transform: none !important;
   }
   .facts.reveal.is-visible .list,
