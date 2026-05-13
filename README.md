@@ -53,11 +53,19 @@ Then connect that repository in the Pages project as in **Deploy map** above.
 
 ## Local preview
 
+Serve from **this directory** (repo root) so absolute paths like `/styles.css` and `/images/` resolve.
+
 ```bash
 python3 -m http.server 8080
 ```
 
-Open `http://localhost:8080` (root must be this directory so `/styles.css` and `/images/` resolve).
+Or, if you use npm:
+
+```bash
+npm run preview
+```
+
+Then open `http://localhost:8080`.
 
 ## Higgsfield CLI (optional — image/video from agents)
 

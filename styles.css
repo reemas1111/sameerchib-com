@@ -165,10 +165,25 @@ header.site .cta .arrow { margin-left: 6px; }
    HERO (sized down, magazine-cover scale)
    ========================================================= */
 .hero {
+  position: relative;
   padding: 64px var(--gutter) 88px;
   border-bottom: 1px solid var(--rule);
+  overflow: clip;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 85% 55% at 50% -15%, rgba(10, 10, 10, 0.045), transparent 58%),
+    radial-gradient(ellipse 50% 45% at 100% 40%, rgba(10, 10, 10, 0.025), transparent 52%),
+    radial-gradient(ellipse 45% 50% at 0% 70%, rgba(10, 10, 10, 0.02), transparent 50%);
 }
 .hero .inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--max-w);
   margin: 0 auto;
   display: grid;
@@ -184,11 +199,21 @@ header.site .cta .arrow { margin-left: 6px; }
   position: relative;
   overflow: hidden;
   max-width: 360px;
-  box-shadow: var(--shadow-lift);
+  box-shadow: var(--shadow-lift), inset 0 0 0 1px rgba(10, 10, 10, 0.06);
   transition: box-shadow var(--dur-slow) var(--ease-out-expo), transform var(--dur-slow) var(--ease-out-expo);
+  animation: hero-fade-up 720ms var(--ease-out-expo) 40ms backwards;
+}
+.hero .portrait::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  opacity: 0.75;
 }
 .hero .portrait:hover {
-  box-shadow: 0 28px 64px rgba(10, 10, 10, 0.12);
+  box-shadow: 0 28px 64px rgba(10, 10, 10, 0.12), inset 0 0 0 1px rgba(10, 10, 10, 0.08);
 }
 .hero .portrait img {
   width: 100%;
@@ -203,7 +228,11 @@ header.site .cta .arrow { margin-left: 6px; }
   transform: scale(1.04);
   filter: grayscale(85%) contrast(1.08);
 }
-.hero .copy { display: flex; flex-direction: column; gap: 22px; }
+.hero .copy {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
 .hero .eyebrow {
   font-family: var(--mono);
   font-weight: 500;
@@ -211,6 +240,9 @@ header.site .cta .arrow { margin-left: 6px; }
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink-soft);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: hero-fade-up 640ms var(--ease-out-expo) 90ms backwards;
 }
 .hero .eyebrow .sep { color: var(--ink-faint); margin: 0 8px; }
 .hero h1 {
@@ -221,15 +253,35 @@ header.site .cta .arrow { margin-left: 6px; }
   letter-spacing: -0.04em;
   color: var(--ink);
 }
+.hero h1 .line {
+  display: block;
+  opacity: 0;
+  transform: translateY(0.14em);
+  animation: hero-fade-up 720ms var(--ease-out-expo) backwards;
+}
+.hero h1 .line-1 { animation-delay: 140ms; }
+.hero h1 .line-2 { animation-delay: 240ms; }
 .hero h1 .dot { color: var(--ink); }
 .hero p.tag {
   font-size: 17px;
   line-height: 1.5;
   max-width: 38ch;
   color: var(--ink);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: hero-fade-up 640ms var(--ease-out-expo) 320ms backwards;
 }
 .hero p.tag strong { font-weight: 600; }
-.hero .actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+.hero .actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: hero-fade-up 640ms var(--ease-out-expo) 400ms backwards;
+}
 .hero .btn {
   font-family: var(--mono);
   font-weight: 500;
@@ -269,6 +321,24 @@ header.site .cta .arrow { margin-left: 6px; }
   color: var(--bg);
   transform: translateY(-2px);
   box-shadow: var(--shadow-soft);
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero .inner {
+      animation: hero-inner-scroll linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 55%;
+    }
+  }
+}
+@keyframes hero-inner-scroll {
+  from {
+    transform: translateY(10px);
+  }
+  to {
+    transform: translateY(-10px);
+  }
 }
 
 /* Tablet */
@@ -328,6 +398,22 @@ section.block .inner {
   color: var(--ink-soft);
   font-size: 15px;
   line-height: 1.55;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .facts.reveal.is-visible .footnote {
+    animation: facts-footnote-in 520ms var(--ease-out-expo) 140ms both;
+  }
+}
+@keyframes facts-footnote-in {
+  from {
+    opacity: 0.35;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* =========================================================
@@ -868,9 +954,28 @@ footer.site .meta .sep { color: var(--ink-faint); }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; will-change: auto; }
   html { scroll-behavior: auto; }
-  .hero .copy > *,
+  .hero .eyebrow,
+  .hero h1 .line,
+  .hero p.tag,
+  .hero .actions,
   .hero .portrait {
     animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero::before {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero .inner {
+    animation: none !important;
+    transform: none !important;
+  }
+  .facts.reveal.is-visible .footnote {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
   header.site.is-scrolled {
     box-shadow: none;
@@ -885,14 +990,14 @@ footer.site .meta .sep { color: var(--ink-faint); }
     box-shadow: none;
   }
   .hero .portrait:hover {
-    box-shadow: var(--shadow-lift);
+    box-shadow: var(--shadow-lift), inset 0 0 0 1px rgba(10, 10, 10, 0.06);
   }
   .pullquote:hover {
     transform: none;
   }
 }
 
-/* Hero entrance */
+/* Hero entrance (keyframes shared; per-element delays above) */
 @keyframes hero-fade-up {
   from {
     opacity: 0;
@@ -902,16 +1007,6 @@ footer.site .meta .sep { color: var(--ink-faint); }
     opacity: 1;
     transform: translateY(0);
   }
-}
-.hero .copy > * {
-  animation: hero-fade-up 720ms var(--ease-out-expo) backwards;
-}
-.hero .copy > *:nth-child(1) { animation-delay: 60ms; }
-.hero .copy > *:nth-child(2) { animation-delay: 140ms; }
-.hero .copy > *:nth-child(3) { animation-delay: 240ms; }
-.hero .copy > *:nth-child(4) { animation-delay: 340ms; }
-.hero .portrait {
-  animation: hero-fade-up 720ms var(--ease-out-expo) 40ms backwards;
 }
 
 /* Skip link + focus visibility */
