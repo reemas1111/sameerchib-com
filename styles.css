@@ -203,7 +203,7 @@ header.site .cta .arrow { margin-left: 6px; }
   max-width: 360px;
   box-shadow: var(--shadow-lift), inset 0 0 0 1px rgba(10, 10, 10, 0.06);
   transition: box-shadow var(--dur-slow) var(--ease-out-expo), transform var(--dur-slow) var(--ease-out-expo);
-  animation: hero-fade-up 720ms var(--ease-out-expo) 40ms backwards;
+  animation: hero-fade-up 720ms var(--ease-out-expo) 40ms both;
 }
 .hero .portrait::after {
   content: "";
@@ -236,6 +236,12 @@ header.site .cta .arrow { margin-left: 6px; }
   min-width: 0;
   position: relative;
   z-index: 2;
+  color: #0a0a0a;
+}
+/* Hard safety: hero copy must always render even if animation/compositor state fails. */
+.hero .copy,
+.hero .copy * {
+  visibility: visible;
 }
 .hero .eyebrow {
   font-family: var(--mono);
@@ -244,9 +250,9 @@ header.site .cta .arrow { margin-left: 6px; }
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  opacity: 0;
-  transform: translateY(14px);
-  animation: hero-fade-up 640ms var(--ease-out-expo) 90ms backwards;
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 .hero .eyebrow .sep { color: var(--ink-faint); margin: 0 8px; }
 .hero h1 {
@@ -255,13 +261,13 @@ header.site .cta .arrow { margin-left: 6px; }
   font-size: clamp(40px, 6vw, 80px);
   line-height: 0.96;
   letter-spacing: -0.04em;
-  color: var(--ink);
+  color: #0a0a0a;
 }
 .hero h1 .line {
   display: block;
-  opacity: 0;
-  transform: translateY(0.14em);
-  animation: hero-fade-up 720ms var(--ease-out-expo) backwards;
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 .hero h1 .line-1 { animation-delay: 140ms; }
 .hero h1 .line-2 { animation-delay: 240ms; }
@@ -270,10 +276,10 @@ header.site .cta .arrow { margin-left: 6px; }
   font-size: 17px;
   line-height: 1.5;
   max-width: 38ch;
-  color: var(--ink);
-  opacity: 0;
-  transform: translateY(14px);
-  animation: hero-fade-up 640ms var(--ease-out-expo) 320ms backwards;
+  color: #0a0a0a;
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 .hero p.tag strong { font-weight: 600; }
 .hero .actions {
@@ -282,9 +288,9 @@ header.site .cta .arrow { margin-left: 6px; }
   align-items: center;
   flex-wrap: wrap;
   margin-top: 4px;
-  opacity: 0;
-  transform: translateY(14px);
-  animation: hero-fade-up 640ms var(--ease-out-expo) 400ms backwards;
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 .hero .btn {
   font-family: var(--mono);
