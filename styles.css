@@ -330,6 +330,14 @@ header.site .cta .arrow { margin-left: 6px; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .hero::before {
+      will-change: transform, opacity;
+      animation: hero-atmo-scroll linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% exit 100%;
+    }
+  }
   .hero .eyebrow,
   .hero h1 .line,
   .hero p.tag,
@@ -378,9 +386,16 @@ header.site .cta .arrow { margin-left: 6px; }
   }
 }
 
-/* Scroll-linked motion removed from .hero .inner: view() timelines + transform on the
-   grid broke hero copy in several browsers (column clipped / invisible). Atmosphere stays
-   on static ::before; optional drift can return behind a dedicated wrapper if needed. */
+@keyframes hero-atmo-scroll {
+  from {
+    opacity: 0.95;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.04) translateY(-8px);
+  }
+}
 
 /* Tablet */
 @media (max-width: 1024px) {
@@ -1003,6 +1018,40 @@ footer.site .meta .sep { color: var(--ink-faint); }
   will-change: auto;
 }
 @media (prefers-reduced-motion: no-preference) {
+  .reveal .section-head .label,
+  .reveal .section-head .meta {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity 500ms var(--ease-out-expo),
+      transform 500ms var(--ease-out-expo);
+  }
+  .reveal.is-visible .section-head .label,
+  .reveal.is-visible .section-head .meta {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal.is-visible .section-head .meta {
+    transition-delay: 80ms;
+  }
+
+  .story.reveal .body p,
+  .story.reveal .pullquote {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 560ms var(--ease-out-expo),
+      transform 560ms var(--ease-out-expo);
+  }
+  .story.reveal.is-visible .body p,
+  .story.reveal.is-visible .pullquote {
+    opacity: 1;
+    transform: none;
+  }
+  .story.reveal.is-visible .pullquote {
+    transition-delay: 120ms;
+  }
+
   .ventures.reveal .card,
   .channels.reveal .card,
   .linkedin.reveal .essays li {
@@ -1028,6 +1077,49 @@ footer.site .meta .sep { color: var(--ink-faint); }
   .channels.reveal.is-visible .card:nth-child(3),
   .linkedin.reveal.is-visible .essays li:nth-child(3) { transition-delay: 220ms; }
   .linkedin.reveal.is-visible .essays li:nth-child(4) { transition-delay: 290ms; }
+
+  .linkedin.reveal .left,
+  .linkedin.reveal .right,
+  .linkedin.reveal .stats .stat {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 580ms var(--ease-out-expo),
+      transform 580ms var(--ease-out-expo);
+  }
+  .linkedin.reveal.is-visible .left,
+  .linkedin.reveal.is-visible .right,
+  .linkedin.reveal.is-visible .stats .stat {
+    opacity: 1;
+    transform: none;
+  }
+  .linkedin.reveal.is-visible .right { transition-delay: 80ms; }
+  .linkedin.reveal.is-visible .stats .stat:nth-child(1) { transition-delay: 120ms; }
+  .linkedin.reveal.is-visible .stats .stat:nth-child(2) { transition-delay: 190ms; }
+  .linkedin.reveal.is-visible .stats .stat:nth-child(3) { transition-delay: 260ms; }
+
+  footer.site.reveal .col,
+  footer.site.reveal .meta,
+  footer.site.reveal h2,
+  footer.site.reveal .pitch {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 560ms var(--ease-out-expo),
+      transform 560ms var(--ease-out-expo);
+  }
+  footer.site.reveal.is-visible .col,
+  footer.site.reveal.is-visible .meta,
+  footer.site.reveal.is-visible h2,
+  footer.site.reveal.is-visible .pitch {
+    opacity: 1;
+    transform: none;
+  }
+  footer.site.reveal.is-visible .pitch { transition-delay: 80ms; }
+  footer.site.reveal.is-visible .col:nth-child(1) { transition-delay: 120ms; }
+  footer.site.reveal.is-visible .col:nth-child(2) { transition-delay: 180ms; }
+  footer.site.reveal.is-visible .col:nth-child(3) { transition-delay: 240ms; }
+  footer.site.reveal.is-visible .meta { transition-delay: 300ms; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; will-change: auto; }
@@ -1050,6 +1142,21 @@ footer.site .meta .sep { color: var(--ink-faint); }
   .facts.reveal.is-visible .footnote {
     animation: none !important;
     opacity: 1 !important;
+  }
+  .reveal .section-head .label,
+  .reveal .section-head .meta,
+  .story.reveal .body p,
+  .story.reveal .pullquote,
+  .linkedin.reveal .left,
+  .linkedin.reveal .right,
+  .linkedin.reveal .stats .stat,
+  footer.site.reveal .col,
+  footer.site.reveal .meta,
+  footer.site.reveal h2,
+  footer.site.reveal .pitch {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
   header.site.is-scrolled {
     box-shadow: none;
