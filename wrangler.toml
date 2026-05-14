@@ -4,6 +4,11 @@
 name = "sameerchib"
 compatibility_date = "2026-05-14"
 
+# Reproducible installs on `wrangler deploy` / `wrangler versions upload` only
+# (see scripts/cf-wrangler-build.sh — skips `wrangler dev` for speed).
+[build]
+command = "sh ./scripts/cf-wrangler-build.sh"
+
 # Serve files from repo root (index.html, styles.css, scripts.js, images/, …)
 [assets]
 directory = "."

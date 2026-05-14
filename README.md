@@ -14,20 +14,22 @@ Pushes to `main` trigger **Workers Builds** → `npx wrangler deploy`, which pub
 
 1. **Cloudflare Dashboard** → **Workers & Pages** → **`sameerchib`**.
 2. **Settings** → **Build** → Git repo **`reemas1111/sameerchib-com`**, production branch **`main`**.
-3. **Commands**:
+3. **Commands** (either setup works):
 
    | Setting | Value |
    |---------|--------|
-   | Build command | `npm ci` *(recommended — installs `wrangler` from `package-lock.json`)* |
+   | Build command | *(empty)* — **`npm ci` already runs inside `wrangler deploy`** via [`wrangler.toml`](wrangler.toml) `[build]` + [`scripts/cf-wrangler-build.sh`](scripts/cf-wrangler-build.sh) |
    | Deploy command | `npx wrangler deploy` |
 
-4. After each push, check **Deployments** / build logs. If the build fails, production will not update (the repo previously had no `wrangler.toml`, so deploys could not publish assets).
+   Optional: set the dashboard **Build command** to `npm ci` as well if you prefer dependencies installed before Wrangler starts (redundant but harmless).
+
+4. After each push, check **Deployments** / build logs. If the build fails, production will not update.
 
 5. **Custom domains**: attach **sameerchib.com** to this Worker if not already.
 
 ### `_headers` and Workers static assets
 
-Wrangler does not bundle `_headers` into static assets (that convention is for [Cloudflare Pages](https://developers.cloudflare.com/pages/configuration/headers/)). Keep `_headers` in the repo as the source of truth; mirror those rules in the dashboard (**Rules** → **Transform Rules** / response headers) if you need the same behaviour on the Worker.
+Cloudflare applies [`_headers`](_headers) from your **static assets directory** to responses — same rule format as [Pages](https://developers.cloudflare.com/workers/static-assets/headers/). The file is not served as a URL; Wrangler just uploads your other assets and the platform parses `_headers` at the edge. No dashboard “Transform Rules” copy is required unless you want extras there.
 
 ## Repo layout (what to edit)
 
@@ -40,7 +42,7 @@ Wrangler does not bundle `_headers` into static assets (that convention is for [
 | [`images/portrait.jpg`](images/portrait.jpg) | Hero portrait (replace or update paths in `index.html` + social meta if renamed) |
 | [`favicon.svg`](favicon.svg) | Favicon |
 | [`wrangler.toml`](wrangler.toml) | Cloudflare Worker name + static `[assets]` (repo root → production site) |
-| [`_headers`](_headers) | Intended for Cloudflare Pages-style header rules (see deploy map — Workers static assets skip this file; mirror in dashboard if needed) |
+| [`_headers`](_headers) | Security + cache headers for [Workers static assets](https://developers.cloudflare.com/workers/static-assets/headers/) (parsed at the edge; not served as a file) |
 
 ## First-time Git push (new clone / empty remote)
 
