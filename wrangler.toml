@@ -1,0 +1,9 @@
+# Cloudflare Workers — static site (Git-linked Worker "sameerchib")
+# https://developers.cloudflare.com/workers/static-assets/
+
+name = "sameerchib"
+compatibility_date = "2026-05-14"
+
+# Serve files from repo root (index.html, styles.css, scripts.js, images/, …)
+[assets]
+directory = "."

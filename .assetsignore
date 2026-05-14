@@ -1,0 +1,20 @@
+# Excluded from the Workers static asset bundle (see Wrangler: .assetsignore).
+# Note: Wrangler also skips `_headers` and `_redirects` by default (Pages-only files).
+
+.git
+node_modules
+node_modules/**
+
+.DS_Store
+**/.DS_Store
+
+.env
+.env.*
+
+# Not served as site files
+package.json
+package-lock.json
+wrangler.toml
+.assetsignore
+README.md
+DESIGN.md

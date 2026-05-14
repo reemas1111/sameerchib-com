@@ -5,24 +5,29 @@
 | Layer | Where |
 |--------|--------|
 | **Repository** | https://github.com/reemas1111/sameerchib-com (`main`) |
-| **Hosting** | [Cloudflare Pages](https://developers.cloudflare.com/pages/) — Workers & Pages project **`sameerchib`** |
-| **Domain** | `sameerchib.com` (custom domain on that Pages project; DNS in Cloudflare) |
+| **Hosting** | [Cloudflare Workers](https://developers.cloudflare.com/workers/) — Git-linked Worker **`sameerchib`** (`npx wrangler deploy`) |
+| **Domain** | `sameerchib.com` (custom domain on that Worker; DNS in Cloudflare) |
 
-Pushes to `main` trigger a production deploy; pull requests get preview URLs once Git is connected to the Pages project.
+Pushes to `main` trigger **Workers Builds** → `npx wrangler deploy`, which publishes static files from [`wrangler.toml`](wrangler.toml) (`[assets]` → repo root).
 
-## Deploy map (Cloudflare Pages)
+## Deploy map (Cloudflare Workers + Git)
 
 1. **Cloudflare Dashboard** → **Workers & Pages** → **`sameerchib`**.
-2. **Settings** → **Builds & deployments** → connect **GitHub** → select **`reemas1111/sameerchib-com`**, production branch **`main`**.
-3. **Build configuration** (static, no build step):
+2. **Settings** → **Build** → Git repo **`reemas1111/sameerchib-com`**, production branch **`main`**.
+3. **Commands**:
 
    | Setting | Value |
    |---------|--------|
-   | Framework preset | **None** |
-   | Build command | *(empty)* |
-   | Build output directory | **`/`** or **`.`** (repo root — folder that contains `index.html`) |
+   | Build command | `npm ci` *(recommended — installs `wrangler` from `package-lock.json`)* |
+   | Deploy command | `npx wrangler deploy` |
 
-4. **Custom domains**: attach **sameerchib.com** to this Pages project if not already.
+4. After each push, check **Deployments** / build logs. If the build fails, production will not update (the repo previously had no `wrangler.toml`, so deploys could not publish assets).
+
+5. **Custom domains**: attach **sameerchib.com** to this Worker if not already.
+
+### `_headers` and Workers static assets
+
+Wrangler does not bundle `_headers` into static assets (that convention is for [Cloudflare Pages](https://developers.cloudflare.com/pages/configuration/headers/)). Keep `_headers` in the repo as the source of truth; mirror those rules in the dashboard (**Rules** → **Transform Rules** / response headers) if you need the same behaviour on the Worker.
 
 ## Repo layout (what to edit)
 
@@ -34,7 +39,8 @@ Pushes to `main` trigger a production deploy; pull requests get preview URLs onc
 | [`DESIGN.md`](DESIGN.md) | Short design token / type reference for edits |
 | [`images/portrait.jpg`](images/portrait.jpg) | Hero portrait (replace or update paths in `index.html` + social meta if renamed) |
 | [`favicon.svg`](favicon.svg) | Favicon |
-| [`_headers`](_headers) | Cloudflare Pages response headers (security + cache hints) |
+| [`wrangler.toml`](wrangler.toml) | Cloudflare Worker name + static `[assets]` (repo root → production site) |
+| [`_headers`](_headers) | Intended for Cloudflare Pages-style header rules (see deploy map — Workers static assets skip this file; mirror in dashboard if needed) |
 
 ## First-time Git push (new clone / empty remote)
 
@@ -49,7 +55,7 @@ git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
 git push -u origin main
 ```
 
-Then connect that repository in the Pages project as in **Deploy map** above.
+Then connect that repository in the Worker project as in **Deploy map** above.
 
 ## Local preview
 
