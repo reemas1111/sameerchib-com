@@ -31,9 +31,9 @@
    RESET + BASE
    ========================================================= */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; background: #ffffff; }
 body {
-  background: var(--bg);
+  background: #ffffff;
   color: var(--ink);
   font-family: var(--body);
   font-size: 16px;
