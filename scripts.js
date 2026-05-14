@@ -86,15 +86,31 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
+  function initHeroMotion() {
+    var hero = document.querySelector('.hero');
+    if (!hero) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+    hero.classList.add('motion-seed');
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        hero.classList.add('is-animated');
+      });
+    });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initReveals();
       initCalendlyLazy();
       initHeaderScroll();
+      initHeroMotion();
     });
   } else {
     initReveals();
     initCalendlyLazy();
     initHeaderScroll();
+    initHeroMotion();
   }
 })();
