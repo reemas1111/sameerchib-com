@@ -515,9 +515,138 @@
     });
   }
 
+
+  // === Hero particle field ===
+  // A dot lattice on the ink hero. Fine pointers: dots repel from the cursor
+  // and spring back. Coarse pointers: a slow autonomous drift wave. One blue
+  // row stays signal. IO-gated rAF, DPR capped, reduced-motion = static paint.
+
+  function initHeroField() {
+    var canvas = document.querySelector('[data-hero-field]');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    var dots = [];
+    var W = 0, H = 0, DPR = 1;
+    var GAP = 34;
+    var mx = -9999, my = -9999;
+    var running = false;
+    var raf = 0;
+    var t0 = performance.now();
+
+    function build() {
+      var rect = canvas.parentElement.getBoundingClientRect();
+      DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+      W = Math.max(1, Math.round(rect.width));
+      H = Math.max(1, Math.round(rect.height));
+      canvas.width = Math.round(W * DPR);
+      canvas.height = Math.round(H * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      dots = [];
+      var cols = Math.ceil(W / GAP) + 1;
+      var rows = Math.ceil(H / GAP) + 1;
+      var signalRow = Math.round(rows * 0.62);
+      for (var r = 0; r < rows; r++) {
+        for (var c = 0; c < cols; c++) {
+          dots.push({ ox: c * GAP, oy: r * GAP, x: c * GAP, y: r * GAP, sig: r === signalRow });
+        }
+      }
+    }
+
+    function paint(interactive, now) {
+      ctx.clearRect(0, 0, W, H);
+      var i, d;
+      // base dots
+      ctx.fillStyle = 'rgba(255,255,255,0.16)';
+      ctx.beginPath();
+      for (i = 0; i < dots.length; i++) {
+        d = dots[i];
+        if (d.sig) continue;
+        ctx.rect(d.x - 0.75, d.y - 0.75, 1.5, 1.5);
+      }
+      ctx.fill();
+      // signal row
+      ctx.fillStyle = 'rgba(0,82,255,0.9)';
+      ctx.beginPath();
+      for (i = 0; i < dots.length; i++) {
+        d = dots[i];
+        if (!d.sig) continue;
+        ctx.rect(d.x - 1.25, d.y - 1.25, 2.5, 2.5);
+      }
+      ctx.fill();
+    }
+
+    function step(now) {
+      var i, d, dx, dy, dist, f;
+      var driftMode = isCoarse;
+      for (i = 0; i < dots.length; i++) {
+        d = dots[i];
+        var tx = d.ox, ty = d.oy;
+        if (driftMode) {
+          ty += Math.sin((now - t0) * 0.0006 + d.ox * 0.018) * 5;
+        } else {
+          dx = d.ox - mx; dy = d.oy - my;
+          dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 140 && dist > 0.001) {
+            f = (1 - dist / 140) * 26;
+            tx = d.ox + (dx / dist) * f;
+            ty = d.oy + (dy / dist) * f;
+          }
+        }
+        d.x += (tx - d.x) * 0.12;
+        d.y += (ty - d.y) * 0.12;
+      }
+      paint(true, now);
+      if (running && !document.hidden) raf = requestAnimationFrame(step);
+    }
+
+    function start() {
+      if (prefersReduce || running) return;
+      running = true;
+      raf = requestAnimationFrame(step);
+    }
+    function stop() {
+      running = false;
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    }
+
+    build();
+    paint(false, 0);
+
+    if (prefersReduce) {
+      window.addEventListener('resize', function () { build(); paint(false, 0); });
+      return;
+    }
+
+    canvas.parentElement.addEventListener('pointermove', function (e) {
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      var rect = canvas.getBoundingClientRect();
+      mx = e.clientX - rect.left;
+      my = e.clientY - rect.top;
+    }, { passive: true });
+    canvas.parentElement.addEventListener('pointerleave', function () { mx = -9999; my = -9999; });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) start(); else stop(); });
+    }, { rootMargin: '60px 0px' });
+    io.observe(canvas);
+
+    var rsz;
+    window.addEventListener('resize', function () {
+      clearTimeout(rsz);
+      rsz = setTimeout(function () { build(); if (!running) paint(false, 0); }, 150);
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) start();
+    });
+  }
+
   function boot() {
     initReveals();
     initAssess();
+    initHeroField();
     initCalendlyLauncher();
     initHeaderScroll();
     initHeroMotion();

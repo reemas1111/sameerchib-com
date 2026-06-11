@@ -21,7 +21,7 @@
 <meta name="twitter:title" content="Sameer Chib · Co-founder, asi intelligence" />
 <meta name="twitter:description" content="Building asi intelligence. Writing The Intelligence Brief. Score your AI readiness in four minutes." />
 <meta name="twitter:image" content="https://sameerchib.com/images/portrait.jpg" />
-<link rel="stylesheet" href="/styles.css?v=20260611-asi-first" />
+<link rel="stylesheet" href="/styles.css?v=20260612-loud" />
 <link rel="preload" as="image" href="/images/portrait.jpg" />
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Sameer Chib","url":"https://sameerchib.com","email":"sam@vermiliong.com.au","jobTitle":"Co-founder","worksFor":{"@type":"Organization","name":"ASI Intelligence","url":"https://asiintelligence.io"},"sameAs":["https://www.linkedin.com/in/sameer-chib","https://instagram.com/sameerchiib","https://www.tiktok.com/@sameer_chib","https://www.youtube.com/@SameerchibVV"]}
@@ -54,41 +54,20 @@
 
   <main id="main">
 
-  <!-- 01 / HERO -->
-  <section class="hero" id="top">
-    <svg class="hero-schematic" viewBox="0 0 640 520" aria-hidden="true" focusable="false">
-      <g class="hs-grid">
-        <path d="M40 80 H600 M40 180 H600 M40 280 H600 M40 380 H600 M40 480 H600" />
-        <path d="M120 20 V500 M260 20 V500 M400 20 V500 M540 20 V500" />
-      </g>
-      <g class="hs-routes">
-        <path class="hs-route" d="M120 80 C 200 80, 180 280, 260 280" />
-        <path class="hs-route" d="M120 380 C 200 380, 180 280, 260 280" />
-        <path class="hs-route" d="M260 280 H 400" />
-        <path class="hs-route" d="M400 280 C 470 280, 460 180, 540 180" />
-      </g>
-      <g class="hs-nodes">
-        <rect x="104" y="64" width="32" height="32" />
-        <rect x="104" y="364" width="32" height="32" />
-        <rect x="244" y="264" width="32" height="32" />
-        <rect x="384" y="264" width="32" height="32" />
-      </g>
-      <circle class="hs-signal" cx="540" cy="180" r="9" />
-    </svg>
+  <!-- 01 / HERO (full-bleed ink, interactive particle field) -->
+  <section class="hero hero-dark" id="top">
+    <canvas class="hero-field" data-hero-field aria-hidden="true"></canvas>
     <div class="inner">
-      <div class="portrait" aria-label="Portrait of Sameer Chib">
-        <img src="/images/portrait.jpg" alt="Sameer Chib working at desk, Sydney" width="720" height="900" decoding="async" fetchpriority="high" />
-      </div>
       <div class="copy">
-        <div class="eyebrow">FOUNDER <span class="sep">·</span> OPERATOR <span class="sep">·</span> WRITER</div>
+        <div class="eyebrow">CO-FOUNDER <span class="sep">·</span> OPERATOR <span class="sep">·</span> WRITER <span class="sep">·</span> 21</div>
         <h1><span class="line line-1">Sameer</span><span class="line line-2">Chib<span class="dot">.</span></span></h1>
-        <p class="tag">21, head down, co-founding <strong>asi intelligence</strong>, the decision layer for the mid-market enterprise. Writing <strong>The Intelligence Brief</strong>. Making the case that ambitious young Australians can ship faster, sharper, and with more skin in the game than any consulting firm.</p>
+        <p class="tag">Co-founding <mark>asi intelligence</mark>, the decision layer for the mid-market enterprise. Writing <strong>The Intelligence Brief</strong>. Building loud from Sydney.</p>
         <div class="actions">
           <a class="btn btn-signal" href="#assess" data-magnetic>Score your AI readiness <span class="arrow">→</span></a>
-          <a class="btn" href="#contact" data-magnetic>Book a call <span class="arrow">→</span></a>
-          <a class="btn btn-ghost" href="#linkedin" data-magnetic>Read The Brief <span class="arrow">→</span></a>
+          <a class="btn btn-inverse" href="#contact" data-magnetic>Book a call <span class="arrow">→</span></a>
         </div>
       </div>
+      <div class="hero-hint mono" aria-hidden="true">MOVE YOUR CURSOR · THE FIELD FOLLOWS</div>
     </div>
   </section>
 
@@ -114,51 +93,75 @@
     </div>
   </div>
 
-  <!-- 02 / ABOUT -->
+  <!-- 02 / ABOUT (stat tiles) -->
   <section class="block facts reveal has-watermark" id="facts" data-watermark="02">
     <div class="inner">
       <div class="section-head">
         <span class="label">02 / ABOUT</span>
-        <span class="meta">SAMEER, IN ONE PARAGRAPH</span>
+        <span class="meta">THE SHORT VERSION</span>
       </div>
-      <p class="list">
-        Sydney based<span class="sep">·</span>co-founder of asi intelligence<span class="sep">·</span>builds the decision layer for mid-market enterprises<span class="sep">·</span>writes The Intelligence Brief biweekly<span class="sep">·</span>founded Vermilion Intelligence first<span class="sep">·</span>21, head down, building loud<span class="sep">·</span>betting on ambitious young operators<span class="sep">·</span>2026.
-      </p>
-      <p class="footnote">asi intelligence unifies fragmented enterprise data and puts agents on the decisions that run the business. A 90-day pilot that never costs more than it returns.</p>
+      <div class="fact-tiles">
+        <div class="ftile"><span class="ft-num" data-count="21">21</span><span class="ft-k">YEARS OLD</span></div>
+        <div class="ftile ftile-signal"><span class="ft-num ft-word">asi</span><span class="ft-k">CO-FOUNDER, ASI INTELLIGENCE</span></div>
+        <div class="ftile"><span class="ft-num ft-word">SYD</span><span class="ft-k">BUILDING FROM SYDNEY</span></div>
+        <div class="ftile"><span class="ft-num" data-count="500" data-suffix="+">500+</span><span class="ft-k">BRIEF SUBSCRIBERS</span></div>
+        <div class="ftile"><span class="ft-num" data-count="19">19</span><span class="ft-k">ESSAYS SHIPPED</span></div>
+        <div class="ftile"><span class="ft-num ft-word">90d</span><span class="ft-k">PILOTS THAT PAY FOR THEMSELVES</span></div>
+      </div>
     </div>
   </section>
 
-  <!-- 03 / BACKSTORY -->
+  <!-- 03 / THE RUN (timeline, portrait, statement slide) -->
   <section class="block story reveal has-watermark" id="story" data-watermark="03">
     <div class="inner">
       <div class="section-head">
-        <span class="label">03 / BACKSTORY</span>
-        <span class="meta">HOW I GOT HERE</span>
+        <span class="label">03 / THE RUN SO FAR</span>
+        <span class="meta">FOUR BEATS, NO THEATRE</span>
       </div>
-      <div class="body">
-        <p>Most AI consulting is theatre. A McKinsey deck nobody implements, a vendor pitching the same SaaS to twelve different industries, or a junior analyst running ChatGPT prompts at three thousand dollars a day. Australian mid-market operators see through it instantly, and then wonder why nothing changes.</p>
-        <p>Vermilion Intelligence was my first answer to that pattern, and it became the proving ground. Sitting at the desks of real operators, mapping real workflows, shipping deployments that had to survive contact with an actual business. That work surfaced the deeper problem: the data underneath every one of those companies was too fragmented for AI to act on.</p>
+      <div class="run-grid">
+        <div class="run-portrait" data-tilt>
+          <img src="/images/portrait.jpg" alt="Sameer Chib working at desk, Sydney" width="720" height="900" loading="lazy" decoding="async" />
+          <span class="run-portrait-tag mono">SYDNEY · 2026</span>
+        </div>
+        <ol class="run-beats">
+          <li class="run-beat reveal">
+            <span class="rb-num">01</span>
+            <div class="rb-body">
+              <span class="rb-title">Saw the theatre</span>
+              <p>Most AI consulting is a McKinsey deck nobody implements. Operators see through it instantly.</p>
+            </div>
+          </li>
+          <li class="run-beat reveal">
+            <span class="rb-num">02</span>
+            <div class="rb-body">
+              <span class="rb-title">Built Vermilion Intelligence</span>
+              <p>On-site AI deployments for Australian mid-market operators. The proving ground.</p>
+            </div>
+          </li>
+          <li class="run-beat reveal">
+            <span class="rb-num">03</span>
+            <div class="rb-body">
+              <span class="rb-title">Found the real problem</span>
+              <p>Every deployment hit the same wall: data too fragmented for AI to act on.</p>
+            </div>
+          </li>
+          <li class="run-beat reveal is-signal">
+            <span class="rb-num">04</span>
+            <div class="rb-body">
+              <span class="rb-title">Co-founded asi intelligence</span>
+              <p>One governed data layer, agents on the decisions, every move operator-approved. With Ansh Mudgil.</p>
+            </div>
+          </li>
+        </ol>
       </div>
+    </div>
+  </section>
 
-      <div class="pullquote">
-        <q>Most AI initiatives fail because the executive cannot tell which workflow to automate. The technology is the easy part.</q>
-        <cite>From The Intelligence Brief, edition 04</cite>
-      </div>
-
-      <div class="body">
-        <p>So now I co-found <strong>asi intelligence</strong> with Ansh Mudgil. The model is straightforward. We unify the data scattered across a business into one layer agents can read, then ship agent-run workflows into the operation, with every move approved by an operator. It starts with a 90-day pilot that never costs more than it returns. The data foundation comes first, the AI second, and nothing ships into a slide deck.</p>
-        <p>I write The Intelligence Brief on LinkedIn every two weeks because most decision-makers do not need another AI newsletter. They need a sharper way to ask the right questions of their own teams. Less hype, fewer demos, more skepticism applied where skepticism actually changes the call.</p>
-      </div>
-
-      <div class="pullquote">
-        <q>The best AI deployments give your best people their job back. Not save them time. Give them their job back.</q>
-        <cite>Sameer Chib · Workshop note, March 2026</cite>
-      </div>
-
-      <div class="body">
-        <p>Right now I am building <a href="#ventures">The Workflow Audit</a>, a course teaching the same discovery framework I run for clients. Six modules. Built for executives who do not want to write a line of code, but do want to know exactly which workflows in their business can become AI-native and which cannot. Cohort one launching later this year.</p>
-        <p>I am twenty-one, in Sydney, working in public, and I think the next decade of Australian business gets rebuilt by people my age who refuse to accept that the only way to deploy AI is to hire a consulting firm. If you are an operator with real workflows, scroll down and book a call. Fifteen minutes, no slides. And if you are twenty-something with a real ambition, message me anyway. The only thing I respect more than a built business is someone trying to build one.</p>
-      </div>
+  <!-- STATEMENT SLIDE (full-bleed signal) -->
+  <section class="statement reveal" aria-label="Statement">
+    <div class="inner">
+      <p class="statement-text">The best AI deployments give your best people <mark>their job back</mark>. Not save them time. Give them their job back.</p>
+      <span class="statement-cite mono">SAMEER CHIB · WORKSHOP NOTE</span>
     </div>
   </section>
 
@@ -174,7 +177,7 @@
           <span class="flag mono">FLAGSHIP</span>
           <span class="num">01</span>
           <span class="title">asi intelligence</span>
-          <span class="desc">The decision layer for the mid-market enterprise. One governed data layer, agents on the decisions that run the business, every move operator-approved. Co-founded with Ansh Mudgil.</span>
+          <span class="desc">The decision layer for the mid-market enterprise. Data in, approved decisions out, in days not weeks.</span>
           <span class="link">ASIINTELLIGENCE.IO<span class="arrow">→</span></span>
         </a>
         <a class="card" href="https://vrmintelligence.com.au" target="_blank" rel="noopener" data-tilt>
@@ -199,6 +202,14 @@
     </div>
   </section>
 
+  <!-- SCORE-IT MARQUEE -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span>SCORE YOUR AI READINESS</span><i>◆</i><span>FOUR MINUTES</span><i>◆</i><span>NO EMAIL</span><i>◆</i><span>SIX DIMENSIONS</span><i>◆</i><span>SCORED IN YOUR BROWSER</span><i>◆</i>
+      <span>SCORE YOUR AI READINESS</span><i>◆</i><span>FOUR MINUTES</span><i>◆</i><span>NO EMAIL</span><i>◆</i><span>SIX DIMENSIONS</span><i>◆</i><span>SCORED IN YOUR BROWSER</span><i>◆</i>
+    </div>
+  </div>
+
   <!-- 05 / AI READINESS ASSESSMENT -->
   <section class="block assess reveal has-watermark" id="assess" data-watermark="05">
     <div class="inner">
@@ -209,7 +220,7 @@
 
       <div class="assess-intro">
         <h2>How ready is your business for AI<span class="signal-mark">?</span></h2>
-        <p class="lede">The same six-dimension readiness scan we run at asi intelligence, rebuilt right here. Answer six questions and get a score out of 30, a readiness tier, and your three next moves. Scored in your browser. No email, nothing leaves this page.</p>
+        <p class="lede">Six questions. A score out of 30, your tier, your three next moves. Scored in your browser, no email.</p>
       </div>
 
       <div class="assess-shell" data-assess>
@@ -317,7 +328,7 @@
       <div class="left">
         <span class="label">06 / ON LINKEDIN</span>
         <h2>The Intelligence Brief.</h2>
-        <p class="lede">Notes on AI, automation, and building real businesses in Australia. Written for decision-makers who want sharper questions, not louder answers. A new essay every two weeks.</p>
+        <p class="lede">Sharper questions, not louder answers. A new essay every two weeks.</p>
         <div class="stats">
           <div class="stat">
             <span class="num" data-count="500" data-suffix="+">500+</span>
@@ -389,28 +400,28 @@
           <div>
             <span class="platform">Channel</span>
             <div class="handle">LinkedIn <span class="card-arrow">→</span></div>
-            <p class="desc">Long-form essays, biweekly Brief, AI commentary for Australian decision-makers.</p>
+            <p class="desc">Essays, the Brief, daily commentary.</p>
           </div>
         </a>
         <a class="card" href="https://instagram.com/sameerchiib" target="_blank" rel="noopener" data-tilt>
           <div>
             <span class="platform">Channel</span>
             <div class="handle">Instagram <span class="card-arrow">→</span></div>
-            <p class="desc">Day-in-the-life, building VI in public, behind the scenes.</p>
+            <p class="desc">Building in public, behind the scenes.</p>
           </div>
         </a>
         <a class="card" href="https://www.tiktok.com/@sameer_chib" target="_blank" rel="noopener" data-tilt>
           <div>
             <span class="platform">Channel</span>
             <div class="handle">TikTok <span class="card-arrow">→</span></div>
-            <p class="desc">Short-form takes on AI, automation, and the consulting industry.</p>
+            <p class="desc">Short takes on AI and consulting.</p>
           </div>
         </a>
         <a class="card" href="https://www.youtube.com/@SameerchibVV" target="_blank" rel="noopener" data-tilt>
           <div>
             <span class="platform">Channel</span>
             <div class="handle">YouTube <span class="card-arrow">→</span></div>
-            <p class="desc">Workflow Audit talks, recorded essays, longer breakdowns.</p>
+            <p class="desc">Talks and longer breakdowns.</p>
           </div>
         </a>
       </div>
@@ -423,7 +434,7 @@
   <footer class="site reveal" id="contact">
     <div class="inner">
       <h2>Want to talk<span class="dot">.</span></h2>
-      <p class="pitch"><strong>Talking to mid-market operators about asi intelligence pilots.</strong> Fifteen minutes, no slides. If the workflows are real, we map them on the call.</p>
+      <p class="pitch"><strong>Talking to mid-market operators about asi intelligence pilots.</strong> Fifteen minutes, no slides.</p>
       <div id="calendly-slot" class="calendly-cta" data-calendly-url="https://calendly.com/sam-asi/intelligence-consultation" aria-live="polite">
         <button type="button" class="calendly-launch" data-calendly-open data-magnetic>
           Open scheduling calendar <span class="arrow">→</span>
@@ -468,6 +479,6 @@
 
   
 
-  <script src="/scripts.js?v=20260611-asi-first" defer></script>
+  <script src="/scripts.js?v=20260612-loud" defer></script>
 </body>
 </html>

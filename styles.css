@@ -1661,3 +1661,241 @@ footer.site a:focus-visible {
   .hs-routes .hs-route, .hs-nodes rect, .hs-signal { animation: none; opacity: 1; stroke-dashoffset: 0; }
   .gauge-arc, .radar-shape, .assess-progress-bar, .assess-anchor { transition: none; }
 }
+
+/* =========================================================
+   v4.0 · LOUD LAYER (2026-06-12)
+   Full-bleed ink hero + interactive particle field, stat
+   tiles, 4-beat run, signal statement slide, marquees.
+   ========================================================= */
+
+/* ---- Hero: full-bleed ink + canvas field ---- */
+.hero.hero-dark {
+  position: relative;
+  overflow: hidden;
+  background: #0A0A0A;
+  color: #fff;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+}
+.hero.hero-dark::before { display: none; }
+.hero-field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.hero.hero-dark .inner {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding: 120px var(--gutter) 80px;
+}
+.hero.hero-dark .eyebrow { color: rgba(255,255,255,0.65); }
+.hero.hero-dark .eyebrow .sep { color: var(--signal); }
+.hero.hero-dark h1 {
+  color: #fff;
+  font-size: clamp(72px, 14vw, 190px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+.hero.hero-dark h1 .dot { color: var(--signal); }
+.hero.hero-dark p.tag {
+  color: rgba(255,255,255,0.78);
+  max-width: 54ch;
+  font-size: clamp(16px, 1.6vw, 19px);
+}
+.hero.hero-dark p.tag strong { color: #fff; }
+.hero.hero-dark p.tag mark {
+  background: var(--signal);
+  color: #fff;
+  padding: 1px 7px;
+  font-weight: 600;
+  font-style: normal;
+}
+.hero.hero-dark .btn-inverse {
+  background: #fff;
+  border-color: #fff;
+  color: #0A0A0A;
+}
+.hero.hero-dark .btn-inverse:hover { background: rgba(255,255,255,0.85); color: #0A0A0A; }
+.hero-hint {
+  position: absolute;
+  bottom: 26px;
+  left: var(--gutter);
+  color: rgba(255,255,255,0.4);
+  font-size: 10px;
+}
+@media (hover: none), (pointer: coarse) {
+  .hero-hint { display: none; }
+}
+
+/* ---- About: stat tiles ---- */
+.fact-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+}
+.ftile {
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: clamp(24px, 3.4vw, 44px);
+  min-height: clamp(160px, 22vw, 240px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  transition: background var(--dur-base) var(--ease-out-expo), color var(--dur-base) var(--ease-out-expo);
+}
+.ftile:hover { background: #0A0A0A; color: #fff; }
+.ftile .ft-num {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(56px, 7.5vw, 110px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+.ftile .ft-k {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+}
+.ftile:hover .ft-k { color: rgba(255,255,255,0.6); }
+.ftile-signal { background: var(--signal); color: #fff; }
+.ftile-signal .ft-k { color: rgba(255,255,255,0.75); }
+.ftile-signal:hover { background: #0048E0; }
+.ftile-signal:hover .ft-k { color: rgba(255,255,255,0.75); }
+
+/* ---- The Run: portrait + beats ---- */
+.run-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 4.5vw, 72px);
+  align-items: start;
+}
+.run-portrait { position: relative; }
+.run-portrait img { width: 100%; height: auto; filter: grayscale(1) contrast(1.05); }
+.run-portrait .run-portrait-tag {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  background: #0A0A0A;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 10px;
+}
+.run-beats { list-style: none; margin: 0; padding: 0; counter-reset: none; }
+.run-beat {
+  display: grid;
+  grid-template-columns: clamp(64px, 8vw, 110px) 1fr;
+  gap: clamp(16px, 2.5vw, 36px);
+  align-items: start;
+  padding: clamp(20px, 2.6vw, 34px) 0;
+  border-bottom: 1px solid var(--rule);
+}
+.run-beat:first-child { border-top: 1px solid var(--rule); }
+.run-beat .rb-num {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(40px, 5.5vw, 78px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--ink-faint);
+  transition: color var(--dur-base) ease;
+}
+.run-beat:hover .rb-num { color: var(--ink); }
+.run-beat.is-signal .rb-num { color: var(--signal); }
+.run-beat .rb-title {
+  display: block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(20px, 2.4vw, 30px);
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+}
+.run-beat p { color: var(--ink-soft); font-size: 15px; line-height: 1.55; max-width: 52ch; }
+.run-beat.is-signal .rb-title { color: var(--signal); }
+
+/* ---- Statement slide (full-bleed signal) ---- */
+.statement {
+  background: var(--signal);
+  color: #fff;
+  padding: clamp(80px, 14vh, 160px) 0;
+}
+.statement .inner { max-width: var(--max-w); margin-inline: auto; padding: 0 var(--gutter); }
+.statement-text {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(30px, 5vw, 64px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  max-width: 24ch;
+}
+.statement-text mark {
+  background: #fff;
+  color: var(--signal);
+  padding: 0 10px;
+}
+.statement-cite {
+  display: block;
+  margin-top: 28px;
+  color: rgba(255,255,255,0.65);
+  font-size: 10px;
+}
+
+/* ---- Score-it marquee strip ---- */
+.marquee-strip {
+  overflow: hidden;
+  background: #0A0A0A;
+  color: #fff;
+  border-block: 1px solid #0A0A0A;
+  padding: 14px 0;
+}
+.marquee-strip .marquee-track {
+  display: flex;
+  gap: 28px;
+  width: max-content;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+}
+.marquee-strip i { color: var(--signal); font-style: normal; }
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-strip .marquee-track { animation: marq 22s linear infinite; }
+  @keyframes marq { to { transform: translateX(-50%); } }
+}
+
+/* ---- Flagship card goes solid signal ---- */
+.ventures .card-flagship {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: #fff;
+}
+.ventures .card-flagship .flag { color: rgba(255,255,255,0.85); }
+.ventures .card-flagship .num { color: rgba(255,255,255,0.7); }
+.ventures .card-flagship .title { color: #fff; }
+.ventures .card-flagship .desc { color: rgba(255,255,255,0.82); }
+.ventures .card-flagship .link { color: #fff; }
+.ventures .card-flagship:hover { background: #0048E0; }
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .fact-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .run-grid { grid-template-columns: 1fr; }
+  .run-portrait { max-width: 380px; }
+}
+@media (max-width: 540px) {
+  .fact-tiles { grid-template-columns: 1fr 1fr; }
+  .ftile { min-height: 130px; padding: 16px; overflow: hidden; }
+  .ftile .ft-num { font-size: 38px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ftile, .run-beat .rb-num { transition: none; }
+}
