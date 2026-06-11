@@ -2118,3 +2118,145 @@ section.block.series {
 @media (prefers-reduced-motion: reduce) {
   .ep-card, .ep-still img { transition: none; }
 }
+
+/* =========================================================
+   v4.2 · CHOREOGRAPHY LAYER (2026-06-12)
+   Deeper, staggered scroll entrances. Micro-label cleanup.
+   ========================================================= */
+
+/* Section heads lost their right meta: keep the rule line clean */
+.section-head { justify-content: flex-start; }
+
+/* Base reveal: deeper travel, slight scale, springier settle */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px) scale(0.985);
+  transition: opacity 700ms var(--ease-out-expo), transform 760ms var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Stat tiles cascade */
+.facts.is-visible .ftile { opacity: 1; transform: none; }
+.facts .ftile {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 600ms var(--ease-out-expo), transform 640ms var(--ease-out-expo),
+    background var(--dur-base) var(--ease-out-expo), color var(--dur-base) var(--ease-out-expo);
+}
+.facts.is-visible .ftile:nth-child(1) { transition-delay: 0ms; }
+.facts.is-visible .ftile:nth-child(2) { transition-delay: 70ms; }
+.facts.is-visible .ftile:nth-child(3) { transition-delay: 140ms; }
+.facts.is-visible .ftile:nth-child(4) { transition-delay: 210ms; }
+.facts.is-visible .ftile:nth-child(5) { transition-delay: 280ms; }
+.facts.is-visible .ftile:nth-child(6) { transition-delay: 350ms; }
+
+/* Billboard: backdrop settles from a slow push-in, copy rises after */
+.billboard .bb-backdrop { transform: scale(1.07); transition: transform 1800ms var(--ease-out-expo); }
+.billboard.is-visible .bb-backdrop { transform: scale(1); }
+.billboard .bb-tag, .billboard .bb-title, .billboard .bb-line, .billboard .bb-actions {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 640ms var(--ease-out-expo), transform 680ms var(--ease-out-expo);
+}
+.billboard.is-visible .bb-tag { opacity: 1; transform: none; transition-delay: 120ms; }
+.billboard.is-visible .bb-title { opacity: 1; transform: none; transition-delay: 220ms; }
+.billboard.is-visible .bb-line { opacity: 1; transform: none; transition-delay: 340ms; }
+.billboard.is-visible .bb-actions { opacity: 1; transform: none; transition-delay: 460ms; }
+
+/* Episode cards deal in left-to-right */
+.series .ep-card {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 620ms var(--ease-out-expo), transform 660ms var(--ease-out-expo),
+    border-color var(--dur-base) ease;
+}
+.series.is-visible .ep-card { opacity: 1; transform: none; }
+.series.is-visible .ep-card:nth-child(1) { transition-delay: 80ms; }
+.series.is-visible .ep-card:nth-child(2) { transition-delay: 180ms; }
+.series.is-visible .ep-card:nth-child(3) { transition-delay: 280ms; }
+.series.is-visible .ep-card:nth-child(4) { transition-delay: 380ms; }
+.series.is-visible .ep-card:nth-child(5) { transition-delay: 480ms; }
+.series.is-visible .ep-card:hover { transform: translateY(-6px); }
+/* episode numerals stamp in after their card */
+.series .ep-num { opacity: 0; transform: translateY(10px); transition: opacity 480ms var(--ease-out-expo), transform 480ms var(--ease-out-expo); }
+.series.is-visible .ep-num { opacity: 1; transform: none; }
+.series.is-visible .ep-card:nth-child(1) .ep-num { transition-delay: 320ms; }
+.series.is-visible .ep-card:nth-child(2) .ep-num { transition-delay: 420ms; }
+.series.is-visible .ep-card:nth-child(3) .ep-num { transition-delay: 520ms; }
+.series.is-visible .ep-card:nth-child(4) .ep-num { transition-delay: 620ms; }
+.series.is-visible .ep-card:nth-child(5) .ep-num { transition-delay: 720ms; }
+
+/* Statement: line rises out of a mask, marker ignites after */
+.statement .inner { overflow: hidden; }
+.statement .statement-text {
+  opacity: 0;
+  transform: translateY(56px);
+  transition: opacity 700ms var(--ease-out-expo), transform 780ms var(--ease-out-expo);
+}
+.statement.is-visible .statement-text { opacity: 1; transform: none; }
+.statement .statement-text mark {
+  background: transparent;
+  color: #fff;
+  transition: background 420ms var(--ease-out-expo) 700ms, color 420ms var(--ease-out-expo) 700ms;
+}
+.statement.is-visible .statement-text mark { background: #fff; color: var(--signal); }
+
+/* Ventures + channels cascade */
+.ventures.is-visible .grid .card, .channels.is-visible .grid .card { opacity: 1; transform: none; }
+.ventures .grid .card, .channels .grid .card {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 600ms var(--ease-out-expo), transform 640ms var(--ease-out-expo),
+    background var(--dur-base) ease, border-color var(--dur-base) ease;
+}
+.ventures.is-visible .grid .card:nth-child(2), .channels.is-visible .grid .card:nth-child(2) { transition-delay: 90ms; }
+.ventures.is-visible .grid .card:nth-child(3), .channels.is-visible .grid .card:nth-child(3) { transition-delay: 180ms; }
+.ventures.is-visible .grid .card:nth-child(4), .channels.is-visible .grid .card:nth-child(4) { transition-delay: 270ms; }
+
+/* Assessment dims rows tick in */
+.assess.is-visible .assess-dims li { opacity: 1; transform: none; }
+.assess .assess-dims li {
+  opacity: 0; transform: translateX(-12px);
+  transition: opacity 480ms var(--ease-out-expo), transform 480ms var(--ease-out-expo);
+}
+.assess.is-visible .assess-dims li:nth-child(1) { transition-delay: 60ms; }
+.assess.is-visible .assess-dims li:nth-child(2) { transition-delay: 130ms; }
+.assess.is-visible .assess-dims li:nth-child(3) { transition-delay: 200ms; }
+.assess.is-visible .assess-dims li:nth-child(4) { transition-delay: 270ms; }
+.assess.is-visible .assess-dims li:nth-child(5) { transition-delay: 340ms; }
+.assess.is-visible .assess-dims li:nth-child(6) { transition-delay: 410ms; }
+
+/* EP05: the door of light (CSS poster, matches ep04's language) */
+.ep-still-door {
+  position: relative;
+  background: #050505;
+  display: block;
+}
+.ep-still-door .door-light {
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  bottom: 12%;
+  width: 7px;
+  transform: translateX(-50%) scaleY(0.4);
+  transform-origin: center bottom;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(0,82,255,0.9));
+  box-shadow: 0 0 28px rgba(0,82,255,0.55), 0 0 90px rgba(0,82,255,0.3);
+  transition: transform 900ms var(--ease-out-expo) 600ms;
+}
+.series.is-visible .ep-still-door .door-light { transform: translateX(-50%) scaleY(1); }
+.ep-card.ep-you:hover .door-light { width: 11px; }
+.ep-still-door .ep-num { position: absolute; right: 10px; bottom: -14px; opacity: 1; color: rgba(255,255,255,0.35); }
+.ep-you { border-color: rgba(0,82,255,0.4); }
+.ep-you:hover { border-color: var(--signal); }
+.ep-you .ep-kicker { color: var(--signal); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .facts .ftile, .billboard .bb-backdrop, .billboard .bb-tag, .billboard .bb-title,
+  .billboard .bb-line, .billboard .bb-actions, .series .ep-card, .series .ep-num,
+  .statement .statement-text, .ventures .grid .card, .channels .grid .card,
+  .assess .assess-dims li, .ep-still-door .door-light {
+    opacity: 1 !important; transform: none !important; transition: none !important;
+  }
+  .statement .statement-text mark { background: #fff; color: var(--signal); transition: none; }
+}
